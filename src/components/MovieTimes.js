@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { supabase } from "../supabase";
 
 import styled from "@emotion/styled";
-import { Button, Typography, Modal, Form, Input } from "antd";
+import { Button, Typography, Modal, Form, Input, message } from "antd";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -10,14 +10,11 @@ import { useMovie } from "../utils/MovieContext";
 
 import img1 from "../assets/img1.jpg";
 import img2 from "../assets/img2.jpg";
-import img3 from "../assets/img3.jpg";
-import img4 from "../assets/img4.jpg";
-import img5 from "../assets/img5.jpg";
 
 const { Title } = Typography;
 
 const SoldOut = styled(Title)`
-  color: #c74250 !important;
+  color: #d8b26e !important;
   margin: 0.5em 0 !important;
   text-align: left;
   font-weight: 800 !important;
@@ -60,8 +57,8 @@ const StyledMovieList = styled.div`
 `;
 
 const ShowtimeButton = styled(Button)`
-  background-color: #c74250; /* Default background color */
-  color: white !important;
+  background-color: #d8b26e; /* Default background color */
+  color: #222c3c !important;
   padding: 20px !important;
   border: none;
   border-radius: 4px;
@@ -70,14 +67,14 @@ const ShowtimeButton = styled(Button)`
   transition: background-color 0.3s ease;
   margin: 8px 8px 8px 0px;
   &:hover {
-    background-color: #e05868 !important;
+    background-color: #c59e5f !important;
   }
 `;
 
 const SubmitButton = styled(Button)`
   width: -webkit-fill-available;
-  background-color: #c74250; /* Default background color */
-  color: white !important;
+  background-color: #d8b26e; /* Default background color */
+  color: #222c3c !important;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -85,7 +82,7 @@ const SubmitButton = styled(Button)`
   transition: background-color 0.3s ease;
   margin: 0px 10px 0px 10px;
   &:hover {
-    background-color: #e05868 !important;
+    background-color: #c59e5f !important;
   }
 `;
 
@@ -114,30 +111,14 @@ const StyledModal = styled(Modal)`
 
 const movies = [
   {
-    id: 1,
-    title: "The Gray Man",
+    id: 4,
+    title: "Top Gun:Maverick",
     poster: img1,
   },
   {
     id: 2,
-    title: "Extraction 2",
+    title: "Sector 36",
     poster: img2,
-  },
-
-  {
-    id: 3,
-    title: "Heart of Stone",
-    poster: img3,
-  },
-  {
-    id: 4,
-    title: "Top Gun:Maverick",
-    poster: img4,
-  },
-  {
-    id: 5,
-    title: "Fast & Furious(Hobbs & Shaw)",
-    poster: img5,
   },
 ];
 const MovieShowtimes = () => {
@@ -171,11 +152,26 @@ const MovieShowtimes = () => {
     }
   };
 
-  const addBooking = async (date, time, name) => {
-    await supabase
+  const addBooking = async (date, time, name, userName, mobileNumber) => {
+    const { data, error } = await supabase
       .from("bookings")
-      .insert([{ movie_name: name, date: date, time: time }])
+      .insert([
+        {
+          movie_name: name,
+          date: date,
+          time: time,
+          name: userName,
+          mobile_number: mobileNumber,
+        },
+      ])
       .select();
+
+    if (error) {
+      console.error("Error inserting data:", error);
+      message.error("Booking failed! Please try again."); // Display error message
+    } else {
+      message.success("Booking successful!"); // Display success message in UI
+    }
   };
 
   const filteredBookings = movies.filter((item) => item.title === name);
@@ -191,7 +187,13 @@ const MovieShowtimes = () => {
       `date ${details.date}, time ${details.time} movie-name ${details.name}`
     );
     form.resetFields();
-    addBooking(details.date, details.time, details.name);
+    addBooking(
+      details.date,
+      details.time,
+      details.name,
+      values.username,
+      values.mobileNo
+    );
   };
 
   return (
@@ -202,6 +204,8 @@ const MovieShowtimes = () => {
       }}
     >
       <StyledMovieList>
+        <TypoHeader level={5}>Jebel Ali</TypoHeader>
+
         {selectedMovie &&
           Object.entries(selectedMovie).map(([date, times]) => {
             const filteredBookings = bookings.filter(
@@ -210,7 +214,6 @@ const MovieShowtimes = () => {
             if (filteredBookings.length < 30) {
               return (
                 <div key={date}>
-                  <TypoHeader level={5}>Accommodation 4</TypoHeader>
                   <TypoHeader level={5}>{date}</TypoHeader>
                   <TypoSubTile>{`${
                     30 - filteredBookings.length
@@ -264,7 +267,7 @@ const MovieShowtimes = () => {
         >
           <Form name="basic" onFinish={onFinish} form={form} layout="vertical">
             <Form.Item
-              label="Username"
+              label="Name"
               name="username"
               rules={[
                 { required: true, message: "Please input your username!" },

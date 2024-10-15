@@ -5,8 +5,8 @@ import { useMovie } from "../utils/MovieContext";
 import { useNavigate } from "react-router-dom";
 const { Title } = Typography;
 const ShowtimeButton = styled(Button)`
-  background-color: #c74250; /* Default background color */
-  color: white !important;
+  background-color: #d8b26e; /* Default background color */
+  color: #222c3c !important;
   padding: 20px !important;
   border: none;
   border-radius: 4px;
@@ -16,7 +16,7 @@ const ShowtimeButton = styled(Button)`
   width: 100%;
 
   &:hover {
-    background-color: #e05868 !important;
+    background-color: #c59e5f !important;
   }
 `;
 
@@ -63,6 +63,8 @@ const MovieCard = ({ title, language, poster, showtimes, year }) => {
         {year}
         <br />
         {`Language: ${language}`}
+        <br />
+        Showing Location : Jebel Ali
       </TypoSubTile>
 
       <ShowtimeButton

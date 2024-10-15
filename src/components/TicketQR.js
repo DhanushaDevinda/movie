@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
-import { QRCode, Space, Typography } from "antd";
+import { Alert, QRCode, Space, Typography } from "antd";
 import React from "react";
 import { useSearchParams } from "react-router-dom";
-
 import ticketBG from "../assets/ticketBG.svg";
 
 const { Title } = Typography;
@@ -20,6 +19,9 @@ const Container = styled.div`
 `;
 
 const StyledMovieList = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
@@ -52,6 +54,12 @@ const TicketQR = () => {
   return (
     <Container>
       <StyledMovieList>
+        <Alert
+          message="Before closing the page, please make sure to take a screenshot of the ticket below."
+          type="warning"
+        />
+        <br />
+
         <div
           style={{
             backgroundImage: `url(${ticketBG})`, // Use the imported image

@@ -6,9 +6,6 @@ import styled from "@emotion/styled";
 
 import img1 from "../assets/img1.jpg";
 import img2 from "../assets/img2.jpg";
-import img3 from "../assets/img3.jpg";
-import img4 from "../assets/img4.jpg";
-import img5 from "../assets/img5.jpg";
 
 const Container = styled.div`
   margin-top: 64px;
@@ -27,52 +24,26 @@ const StyledMovieList = styled.div`
 const movies = [
   {
     id: 1,
-    title: "The Gray Man",
+    title: "Top Gun:Maverick",
     year: 2022,
     poster: img1,
     language: "English",
     showtimes: {
-      "10-October-2024": ["7.00 PM"],
+      "17-October-2024": ["5.00 PM"],
+      "18-October-2024": ["8.30 PM"],
+      "19-October-2024": ["5.00 PM"],
     },
   },
   {
-    id: 2,
-    title: "Extraction 2",
-    year: 2023,
+    id: 1,
+    title: "Sector 36",
+    year: 2024,
     poster: img2,
-    language: "English",
+    language: "Hindi",
     showtimes: {
-      "15-October-2024": ["7.00 PM"],
-    },
-  },
-  {
-    id: 3,
-    title: "Heart of Stone",
-    year: 2023,
-    poster: img3,
-    language: "English",
-    showtimes: {
-      "12-October-2024": ["7.00 PM"],
-    },
-  },
-  {
-    id: 4,
-    title: "Top Gun:Maverick",
-    year: 2022,
-    poster: img4,
-    language: "English",
-    showtimes: {
-      "14-October-2024": ["7.00 PM"],
-    },
-  },
-  {
-    id: 5,
-    title: "Fast & Furious(Hobbs & Shaw)",
-    year: 2019,
-    poster: img5,
-    language: "English",
-    showtimes: {
-      "11-October-2024": ["7.00 PM"],
+      "17-October-2024": ["8.30 PM"],
+      "18-October-2024": ["5.00 PM"],
+      "19-October-2024": ["8.30 PM"],
     },
   },
 ];
