@@ -211,41 +211,39 @@ const MovieShowtimes = () => {
             const filteredBookings = bookings.filter(
               (booking) => booking.date === date
             );
-            if (filteredBookings.length < 30) {
-              return (
-                <div key={date}>
-                  <TypoHeader level={5}>{date}</TypoHeader>
-                  <TypoSubTile>{`${
-                    30 - filteredBookings.length
-                  } seats remain`}</TypoSubTile>
+            // if (filteredBookings.length < 30) {
+            return (
+              <div key={date}>
+                <TypoHeader level={5}>{date}</TypoHeader>
+                <TypoSubTile>{`${filteredBookings.length} guests have already taken their seats in the cinema.`}</TypoSubTile>
 
-                  <div style={{ display: "flex" }}>
-                    {times.map((time, index) => (
-                      <ShowtimeButton
-                        key={index}
-                        onClick={() => {
-                          setModalOpen(true);
-                          setDetails({
-                            date,
-                            time,
-                            name,
-                          });
-                        }}
-                      >
-                        {time}
-                      </ShowtimeButton>
-                    ))}
-                  </div>
+                <div style={{ display: "flex" }}>
+                  {times.map((time, index) => (
+                    <ShowtimeButton
+                      key={index}
+                      onClick={() => {
+                        setModalOpen(true);
+                        setDetails({
+                          date,
+                          time,
+                          name,
+                        });
+                      }}
+                    >
+                      {time}
+                    </ShowtimeButton>
+                  ))}
                 </div>
-              );
-            } else {
-              return (
-                <>
-                  <TypoHeader level={5}>{date}</TypoHeader>{" "}
-                  <SoldOut level={5}>SOLD OUT</SoldOut>
-                </>
-              );
-            }
+              </div>
+            );
+            // } else {
+            //   return (
+            //     <>
+            //       <TypoHeader level={5}>{date}</TypoHeader>{" "}
+            //       <SoldOut level={5}>SOLD OUT</SoldOut>
+            //     </>
+            //   );
+            // }
           })}
 
         <StyledModal
