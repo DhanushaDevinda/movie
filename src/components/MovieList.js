@@ -24,26 +24,26 @@ const StyledMovieList = styled.div`
 const movies = [
   {
     id: 1,
-    title: "Top Gun:Maverick",
-    year: 2022,
+    title: "Heart of Stone",
+    year: 2023,
     poster: img1,
     language: "English",
     showtimes: {
-      "17-October-2024": ["5.00 PM"],
-      "18-October-2024": ["8.30 PM"],
-      "19-October-2024": ["5.00 PM"],
+      "21-October-2024": ["5.00 PM"],
+      "22-October-2024": ["8.30 PM"],
+      "23-October-2024": ["5.00 PM"],
     },
   },
   {
     id: 1,
-    title: "Sector 36",
+    title: "Ulajh",
     year: 2024,
     poster: img2,
     language: "Hindi",
     showtimes: {
-      "17-October-2024": ["8.30 PM"],
-      "18-October-2024": ["5.00 PM"],
-      "19-October-2024": ["8.30 PM"],
+      "21-October-2024": ["8.30 PM"],
+      "22-October-2024": ["5.00 PM"],
+      "23-October-2024": ["8.30 PM"],
     },
   },
 ];

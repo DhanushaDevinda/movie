@@ -64,7 +64,7 @@ const MovieCard = ({ title, language, poster, showtimes, year }) => {
         <br />
         {`Language: ${language}`}
         <br />
-        Showing Location : Jebel Ali
+        Showing Location : Al Khail Gate
       </TypoSubTile>
 
       <ShowtimeButton
