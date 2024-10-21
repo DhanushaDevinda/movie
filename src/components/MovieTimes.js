@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { supabase } from "../supabase";
 
 import styled from "@emotion/styled";
-import { Button, Typography, Modal, Form, Input, message } from "antd";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Button, Form, Input, message, Modal, Typography } from "antd";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { useMovie } from "../utils/MovieContext";
 
@@ -145,10 +144,10 @@ const MovieShowtimes = () => {
 
     if (error) {
       console.error("Error fetching bookings:", error);
-      setError(error); // Set error state if there's an issue
+      setError(error);
     } else {
       console.log("🚀 ~ getAllBooking ~ bookings:", data);
-      setBookings(data); // Store the bookings data in state
+      setBookings(data);
     }
   };
 
