@@ -111,12 +111,12 @@ const StyledModal = styled(Modal)`
 const movies = [
   {
     id: 4,
-    title: "Heart of Stone",
+    title: "Top Gun: Maverick",
     poster: img1,
   },
   {
     id: 2,
-    title: "Ulajh",
+    title: "Sector 36",
     poster: img2,
   },
 ];
@@ -203,7 +203,7 @@ const MovieShowtimes = () => {
       }}
     >
       <StyledMovieList>
-        <TypoHeader level={5}>Al Khail Gate</TypoHeader>
+        <TypoHeader level={5}>Sonapur 4</TypoHeader>
 
         {selectedMovie &&
           Object.entries(selectedMovie).map(([date, times]) => {
