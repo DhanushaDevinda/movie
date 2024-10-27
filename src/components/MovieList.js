@@ -1,7 +1,7 @@
 // MovieList.js
 import React from "react";
 import MovieCard from "./MovieCard";
-import { Col, Row } from "antd";
+import { Col, Row, Alert } from "antd";
 import styled from "@emotion/styled";
 
 import img1 from "../assets/img1.jpg";
@@ -52,6 +52,12 @@ function MovieList() {
   return (
     <Container>
       <StyledMovieList>
+        <Alert
+          message="Seating will be allocated on a first-come, first-served basis."
+          type="warning"
+        />
+        <br />
+
         <Row gutter={6} justify="center">
           {movies.map((movie, index) => (
             <Col key={index} xs={12} sm={12} md={12} lg={6} xl={6}>
