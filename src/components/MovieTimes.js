@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { supabase } from "../supabase";
 
 import styled from "@emotion/styled";
@@ -12,13 +12,13 @@ import img2 from "../assets/img2.jpg";
 
 const { Title } = Typography;
 
-const SoldOut = styled(Title)`
-  color: #d8b26e !important;
-  margin: 0.5em 0 !important;
-  text-align: left;
-  font-weight: 800 !important;
-  font-size: 18px !important;
-`;
+// const SoldOut = styled(Title)`
+//   color: #d8b26e !important;
+//   margin: 0.5em 0 !important;
+//   text-align: left;
+//   font-weight: 800 !important;
+//   font-size: 18px !important;
+// `;
 
 const TypoHeader = styled(Title)`
   color: white !important;
@@ -122,7 +122,6 @@ const movies = [
 ];
 const MovieShowtimes = () => {
   const [bookings, setBookings] = useState([]); // State to hold bookings
-  const [setError] = useState(null); // State to hold any errors
   const [modalOpen, setModalOpen] = useState(false);
   const { name } = useParams();
   const { selectedMovie } = useMovie();
@@ -130,13 +129,9 @@ const MovieShowtimes = () => {
   const [form] = Form.useForm();
   const [details, setDetails] = useState("");
 
-  useEffect(() => {
-    getAllBooking();
+  const getAllBooking = useCallback(async () => {
     if (selectedMovie == null) navigate("/");
-  });
 
-  // Function to fetch bookings
-  const getAllBooking = async () => {
     let { data, error } = await supabase
       .from("bookings")
       .select("*")
@@ -144,15 +139,18 @@ const MovieShowtimes = () => {
 
     if (error) {
       console.error("Error fetching bookings:", error);
-      setError(error);
     } else {
       console.log("🚀 ~ getAllBooking ~ bookings:", data);
       setBookings(data);
     }
-  };
+  }, [selectedMovie, name, navigate]);
+
+  useEffect(() => {
+    getAllBooking();
+  }, [getAllBooking]);
 
   const addBooking = async (date, time, name, userName, mobileNumber) => {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("bookings")
       .insert([
         {
