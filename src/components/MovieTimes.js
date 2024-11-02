@@ -1,19 +1,24 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { supabase } from "../supabase";
 
 import styled from "@emotion/styled";
-import { Button, Form, Input, message, Modal, Typography } from "antd";
+import { Button, Form, Input, Modal, Typography } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { useMovie } from "../utils/MovieContext";
 
 import img1 from "../assets/img1.jpg";
 import img2 from "../assets/img2.jpg";
+import img3 from "../assets/img3.jpg";
+import img4 from "../assets/img4.jpg";
+import img5 from "../assets/img5.jpg";
+import img6 from "../assets/img6.jpg";
+import img7 from "../assets/img7.jpg";
+import img8 from "../assets/img8.jpg";
 
 const { Title } = Typography;
 
 // const SoldOut = styled(Title)`
-//   color: #d8b26e !important;
+//   color: #c74250 !important;
 //   margin: 0.5em 0 !important;
 //   text-align: left;
 //   font-weight: 800 !important;
@@ -56,8 +61,8 @@ const StyledMovieList = styled.div`
 `;
 
 const ShowtimeButton = styled(Button)`
-  background-color: #d8b26e; /* Default background color */
-  color: #222c3c !important;
+  background-color: #c74250; /* Default background color */
+  color: #fff !important;
   padding: 20px !important;
   border: none;
   border-radius: 4px;
@@ -66,14 +71,14 @@ const ShowtimeButton = styled(Button)`
   transition: background-color 0.3s ease;
   margin: 8px 8px 8px 0px;
   &:hover {
-    background-color: #c59e5f !important;
+    background-color: #e05868 !important;
   }
 `;
 
 const SubmitButton = styled(Button)`
   width: -webkit-fill-available;
-  background-color: #d8b26e; /* Default background color */
-  color: #222c3c !important;
+  background-color: #c74250; /* Default background color */
+  color: #fff !important;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -81,7 +86,7 @@ const SubmitButton = styled(Button)`
   transition: background-color 0.3s ease;
   margin: 0px 10px 0px 10px;
   &:hover {
-    background-color: #c59e5f !important;
+    background-color: #e05868 !important;
   }
 `;
 
@@ -110,16 +115,47 @@ const StyledModal = styled(Modal)`
 
 const movies = [
   {
-    id: 4,
-    title: "Top Gun: Maverick",
+    id: 1,
+    title: "The Wild Robot",
     poster: img1,
   },
   {
     id: 2,
-    title: "Sector 36",
+    title: "Devara",
     poster: img2,
   },
+  {
+    id: 3,
+    title: "Meiyazhagan",
+    poster: img3,
+  },
+  {
+    id: 4,
+    title: "Kishkindha Kaandam",
+    poster: img4,
+  },
+  {
+    id: 5,
+    title: "Transformers One",
+    poster: img5,
+  },
+  {
+    id: 6,
+    title: "Ashek",
+    poster: img6,
+  },
+  {
+    id: 7,
+    title: "Never Let Go",
+    poster: img7,
+  },
+  {
+    id: 8,
+    title: "Weekend in Taipei",
+    poster: img8,
+  },
 ];
+
 const MovieShowtimes = () => {
   const [bookings, setBookings] = useState([]); // State to hold bookings
   const [modalOpen, setModalOpen] = useState(false);
@@ -132,10 +168,7 @@ const MovieShowtimes = () => {
   const getAllBooking = useCallback(async () => {
     if (selectedMovie == null) navigate("/");
 
-    let { data, error } = await supabase
-      .from("bookings")
-      .select("*")
-      .eq("movie_name", name);
+    let { data, error } = { data: [], error: "" };
 
     if (error) {
       console.error("Error fetching bookings:", error);
@@ -143,32 +176,20 @@ const MovieShowtimes = () => {
       console.log("🚀 ~ getAllBooking ~ bookings:", data);
       setBookings(data);
     }
-  }, [selectedMovie, name, navigate]);
+  }, [selectedMovie, navigate]);
 
   useEffect(() => {
     getAllBooking();
   }, [getAllBooking]);
 
   const addBooking = async (date, time, name, userName, mobileNumber) => {
-    const { error } = await supabase
-      .from("bookings")
-      .insert([
-        {
-          movie_name: name,
-          date: date,
-          time: time,
-          name: userName,
-          mobile_number: mobileNumber,
-        },
-      ])
-      .select();
-
-    if (error) {
-      console.error("Error inserting data:", error);
-      message.error("Booking failed! Please try again."); // Display error message
-    } else {
-      message.success("Booking successful!"); // Display success message in UI
-    }
+    console.log({
+      movie_name: name,
+      date: date,
+      time: time,
+      name: userName,
+      mobile_number: mobileNumber,
+    });
   };
 
   const filteredBookings = movies.filter((item) => item.title === name);
@@ -201,8 +222,6 @@ const MovieShowtimes = () => {
       }}
     >
       <StyledMovieList>
-        <TypoHeader level={5}>Sonapur 4</TypoHeader>
-
         {selectedMovie &&
           Object.entries(selectedMovie).map(([date, times]) => {
             const filteredBookings = bookings.filter(
